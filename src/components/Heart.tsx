@@ -57,7 +57,7 @@ export default function Heart({ names }: HeartProps) {
 				className='absolute text-white font-bold text-2xl text-center'
 				style={{ whiteSpace: 'pre-wrap', fontFamily: "'Caveat', cursive" }}
 			>
-				{names.split(' ').join('\n')}
+				{(names ?? '').split(' ').join('\n')}
 			</span>
 		</motion.div>
 	)
