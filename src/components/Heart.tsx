@@ -55,7 +55,7 @@ export default function Heart({ names }: HeartProps) {
 
 			<span
 				className='absolute text-white font-bold text-2xl text-center'
-				style={{ whiteSpace: 'pre-wrap', fontFamily: "'Caveat', cursive" }}
+				style={{ whiteSpace: 'pre-wrap' }}
 			>
 				{(names ?? '').split(' ').join('\n')}
 			</span>
