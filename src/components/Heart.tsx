@@ -1,21 +1,11 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 
 interface HeartProps {
 	names?: string
 }
 
 export default function Heart({ names }: HeartProps) {
-	const [isMobile, setIsMobile] = useState(false)
-
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth <= 768)
-		handleResize()
-		window.addEventListener('resize', handleResize)
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
-
 	// Анимация переливания цвета между розовым и красным
 	const colorAnimation = {
 		backgroundColor: ['#f472b6', '#ef4444', '#f472b6'], // розовый → красный → розовый
