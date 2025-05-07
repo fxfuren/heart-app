@@ -7,7 +7,6 @@ interface HeartProps {
 }
 
 export default function Heart({ names }: HeartProps) {
-	const [hovered, setHovered] = useState(false)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
@@ -17,40 +16,42 @@ export default function Heart({ names }: HeartProps) {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
+	// Анимация переливания цвета между розовым и красным
+	const colorAnimation = {
+		backgroundColor: ['#f472b6', '#ef4444', '#f472b6'], // розовый → красный → розовый
+		transition: {
+			duration: 2,
+			repeat: Infinity,
+			ease: 'easeInOut',
+		},
+	}
+
 	return (
 		<motion.div
 			className='relative flex flex-col items-center justify-center'
 			initial={{ scale: 1 }}
 			animate={{ scale: [1, 1.1, 1] }}
 			transition={{ repeat: Infinity, duration: 1 }}
-			onMouseEnter={() => setHovered(true)}
-			onMouseLeave={() => setHovered(false)}
 		>
 			<div className='relative w-[240px] h-[216px] mt-4'>
-				<div
-					className={`absolute top-0 w-[125px] h-[192px] bg-red-500 rounded-t-[120px] left-[120px] rotate-[-45deg] origin-bottom-left transition-all ${
-						hovered ? 'bg-pink-400' : 'bg-red-500'
-					}`}
+				<motion.div
+					className='absolute top-0 w-[125px] h-[192px] rounded-t-[120px] left-[120px] rotate-[-45deg] origin-bottom-left'
+					animate={colorAnimation}
 				/>
-				<div
-					className={`absolute top-0 w-[120px] h-[192px] bg-red-500 rounded-t-[120px] left-0 rotate-[45deg] origin-bottom-right transition-all ${
-						hovered ? 'bg-pink-400' : 'bg-red-500'
-					}`}
+				<motion.div
+					className='absolute top-0 w-[120px] h-[192px] rounded-t-[120px] left-0 rotate-[45deg] origin-bottom-right'
+					animate={colorAnimation}
 				/>
 			</div>
 
 			<motion.div
-				className='absolute w-[220px] h-[220px] bg-red-500 blur-2xl opacity-30 rounded-full'
-				animate={
-					isMobile
-						? { opacity: [0.3, 0.7, 0.3] }
-						: { scale: hovered ? 1.2 : 1, opacity: hovered ? 0.5 : 0.3 }
-				}
-				transition={
-					isMobile
-						? { repeat: Infinity, duration: 1, ease: 'easeInOut' }
-						: { duration: 0.3 }
-				}
+				className='absolute w-[220px] h-[220px] blur-2xl opacity-30 rounded-full'
+				animate={{
+					scale: [1, 1.2, 1],
+					opacity: [0.3, 0.6, 0.3],
+					backgroundColor: ['#f472b6', '#ef4444', '#f472b6'],
+				}}
+				transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
 			/>
 
 			<span
